@@ -30,7 +30,7 @@ getopts('b:r:c:h:z:i:p:q:s:l:n:a:e:');
 my $version = "[v1.4]\nDerivation of HLA class I and II predictions from shotgun sequence datasets";
 
 ###CHANGE IF NEEDED - DEFAULTS
-my($sam_file,$blast_file,$reci_file,$tig_file,$hla_file,$min_tig_size, $min_seq_id, $min_phred, $min_score, $label, $nullalleles,$p_file,$singleend) = ("NA","NA","NA","NA","NA",200,99,30,1000,"",0,"../database/hla_nom_p.txt",0);
+my($sam_file,$blast_file,$reci_file,$tig_file,$hla_file,$min_tig_size, $min_seq_id, $min_phred, $min_score, $label, $nullalleles,$p_file,$singleend,$outpath) = ("NA","NA","NA","NA","NA",200,99,30,1000,"",0,"../database/hla_nom_p.txt",0,".");
 my @hla1=('A','B','C','E','F','G');
 my @hla2=('DPA1','DPB1','DQA1','DQB1','DRA','DRB1','DRB2','DRB3','DRB4','DRB5','DRB6','DRB7','DRB8','DRB9');
 my @hlagenes = (@hla1,@hla2);
@@ -55,6 +55,7 @@ if(! $opt_h){
    print "-q minimum log10 (phred-like) expect value...<30>\n";
    print "-s minimum score.............................<1000>\n";
    print "-n consider null alleles (1=yes/0=no)........<0>\n";
+   print "-m output path...............................<./>\n";
    die "-l label (run name) -optional-\n";
 }
 
@@ -70,6 +71,7 @@ $min_phred = $opt_q if($opt_q);
 $min_score = $opt_s if($opt_s);
 $nullalleles = $opt_n if($opt_n);
 $singleend = 1 if($opt_e);
+$outpath = $opt_m if($opt_m);
 $label = $opt_l;
 my $column = 0;
 my $parameters = "$0 $version\n-b $blast_file\n-r $reci_file\n-c $tig_file\n-a $sam_file\n-e $singleend\n-h $hla_file\n-p $p_file\n-z $min_tig_size\n-i $min_seq_id\n-q $min_phred\n-s $min_score\n-n $nullalleles";
@@ -187,12 +189,13 @@ print "done. reporting alignments [$date]\n";
 
 
 my $log = $mode . ".log";
+$log = join("/", $outpath, $log);
 open(LOG,">$log") || die "Can't open $log for writing - Fatal.\n";
 print "$mode log written to $log\n";
 
 my $out = $mode . ".csv";
+$out = join("/", $outpath, $out);
 open(OUT,">$out") || die "Can't open $out for writing - Fatal.\n";
-
 print LOG "$parameters\n";
 
 

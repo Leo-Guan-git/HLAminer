@@ -1,4 +1,4 @@
-#!/home/martink/bin/perl
+#!/usr/bin/perl
 #RLW2011/2015
 #edits to support ncbi blast+ (2.2.28) - see comments
 

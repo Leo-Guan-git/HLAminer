@@ -26,7 +26,7 @@ use strict;
 use Getopt::Std;
 use Data::Dumper;
 use vars qw($opt_b $opt_r $opt_c $opt_h $opt_z $opt_i $opt_q $opt_s $opt_l $opt_n $opt_a $opt_p $opt_e);
-getopts('b:r:c:h:z:i:p:q:s:l:n:a:e:');
+getopts('b:r:c:h:z:i:p:q:s:l:n:a:e:m:');
 my $version = "[v1.4]\nDerivation of HLA class I and II predictions from shotgun sequence datasets";
 
 ###CHANGE IF NEEDED - DEFAULTS
@@ -55,7 +55,7 @@ if(! $opt_h){
    print "-q minimum log10 (phred-like) expect value...<30>\n";
    print "-s minimum score.............................<1000>\n";
    print "-n consider null alleles (1=yes/0=no)........<0>\n";
-   print "-m output path...............................<./>\n";
+   print "-m output path...............................<.>\n";
    die "-l label (run name) -optional-\n";
 }
 
